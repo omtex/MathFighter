@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     public GameObject LoseGamePanel;
     public GameObject ComboPanel;
 
-    [SerializeField] TMP_Text InfoText; // genel anlarda ekrana çýkan yazý
+    [SerializeField] TMP_Text InfoText; // genel anlarda ekrana ï¿½ï¿½kan yazï¿½
     [SerializeField] GameObject InfoTxtSpawnPoint;
     [SerializeField] TMP_Text LoseText;
     [SerializeField] TMP_Text StartTimeText;
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton ayarý
+        // Singleton ayarï¿½
         if (Instance == null)
             Instance = this;
         else
@@ -111,15 +111,15 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        StartPanelGame(); // Main Menu(Ýleride farklý sahneye aktarýlabilir)
+        StartPanelGame(); // Main Menu(ï¿½leride farklï¿½ sahneye aktarï¿½labilir)
         GetHighScore();
         Audio_Source = GetComponent<AudioSource>();   
     }
-    public void StartGame() // Oyun baþlatma
+    public void StartGame() // Oyun baï¿½latma
     {
         StartCoroutine(StartingTimer());
     }
-    private IEnumerator StartingTimer() // Oyun baþlamadan önce süre sayýlýr
+    private IEnumerator StartingTimer() // Oyun baï¿½lamadan ï¿½nce sï¿½re sayï¿½lï¿½r
     {
         int duration = Convert.ToInt32(StartingDuration);
         StartTimeText.gameObject.SetActive(true);
@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
             SpawnBaloonCoroutine = null;
         }
     }
-    public void EndGame(bool IsRestartScene) // Oyun durdurulur. Restart ise sahne yenilenir. Deðil ise oyun resetlenir
+    public void EndGame(bool IsRestartScene) // Oyun durdurulur. Restart ise sahne yenilenir. Deï¿½il ise oyun resetlenir
     {
         if (IsRestartScene)
         {
@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
     {
         SetDifficulty(DifficultyGame.HardPlus);
     }
-    public void SetDifficulty(DifficultyGame gameDiff) // UI da zorluk seçerken ki backend
+    public void SetDifficulty(DifficultyGame gameDiff) // UI da zorluk seï¿½erken ki backend
     {
         currentBaloonTime = BalloonTime;
         currentBaloonSpeedIncrease = BaloonSpeedIncrease;
@@ -228,13 +228,13 @@ public class GameManager : MonoBehaviour
             case DifficultyGame.Easy:
                 MinNumber = 2;
                 MaxNumber = 51;
-                CurrentBaloonSpeed -= 100f;
+                CurrentBaloonSpeed -= 50f;
                 goldMultiplier = 1;
                 break;
             case DifficultyGame.Normal:
                 MinNumber = 50;
                 MaxNumber = 121;
-                CurrentBaloonSpeed -= 50f;
+                CurrentBaloonSpeed -= 100f;
                 currentBaloonSpeedIncrease += 0.2f;
                 currentBaloonTime += 0.5f;
                 goldMultiplier = 2;
@@ -264,7 +264,7 @@ public class GameManager : MonoBehaviour
         DifficultPanel.SetActive(false);
         StartGame();
     }
-    public void ResetGame(bool isToMenu) // Belli durumlarda oyundaki sistemleri sýfýrlar durdurur.
+    public void ResetGame(bool isToMenu) // Belli durumlarda oyundaki sistemleri sï¿½fï¿½rlar durdurur.
     {
         IsGamePaused  = false;
         currentBaloonSpeedIncrease = BaloonSpeedIncrease;
@@ -287,7 +287,7 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-    private IEnumerator BaloonSpawn() // Balonlar spawn olmaya baþlar. 
+    private IEnumerator BaloonSpawn() // Balonlar spawn olmaya baï¿½lar. 
     {
         yield return new WaitForSecondsRealtime(0.3f);
 
@@ -295,23 +295,23 @@ public class GameManager : MonoBehaviour
         {
             int spawnIndex = UnityEngine.Random.Range(0, SpawnPoints.Length);
 
-            Button newBaloon = Instantiate(PrefabBalonn, SpawnPoints[spawnIndex].transform.position,Quaternion.identity); // balonu oluþtur
+            Button newBaloon = Instantiate(PrefabBalonn, SpawnPoints[spawnIndex].transform.position,Quaternion.identity); // balonu oluï¿½tur
             newBaloon.transform.SetParent(SpawnPoints[spawnIndex].transform);
 
             BaloonButton btn = newBaloon.GetComponent<BaloonButton>();
 
             btn.TrueValue = value_number;
-            int rndResult = UnityEngine.Random.Range(0, 2); // doðru cevap yada yanlýþ cevabý entegre et
+            int rndResult = UnityEngine.Random.Range(0, 2); // doï¿½ru cevap yada yanlï¿½ï¿½ cevabï¿½ entegre et
             int result = 0;
             btn.TrueValue = value_number; 
-            if (rndResult == 0) // doðru deðeri ata
+            if (rndResult == 0) // doï¿½ru deï¿½eri ata
             {
                 int a = UnityEngine.Random.Range(1, value_number + 1);
                 int b = value_number - a;
                 result = a + b;
                 btn.BtnTxt.text = a.ToString() + " + " + b.ToString();
             }
-            else if(rndResult == 1) // yanlýþ deðer ata
+            else if(rndResult == 1) // yanlï¿½ï¿½ deï¿½er ata
             {
                 int x = UnityEngine.Random.Range(1, value_number);
                 int y = UnityEngine.Random.Range(1, value_number);
@@ -323,7 +323,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(BalloonTime);
         }
     }
-    public void ClearBaloons() // Tüm balonlar silinir
+    public void ClearBaloons() // Tï¿½m balonlar silinir
     {
         foreach (GameObject x in SpawnedBaloons)
         {
@@ -335,14 +335,14 @@ public class GameManager : MonoBehaviour
         SpawnedBaloons.Clear();
     }
   
-   public void SetValue() // yeni sayý belirlenir
+   public void SetValue() // yeni sayï¿½ belirlenir
     {
         int new_value = UnityEngine.Random.Range(MinNumber, MaxNumber);
         value_number = new_value;
         ValueTxt.text = value_number.ToString();
         Audio_Source.PlayOneShot(ChangeNumberSound);
     }
-    public void SelectControl(int value, Button btn) // Topa(Balona) týklandýðýnda kontrol gerçekleþir
+    public void SelectControl(int value, Button btn) // Topa(Balona) tï¿½klandï¿½ï¿½ï¿½nda kontrol gerï¿½ekleï¿½ir
     {
         Button baloonBtn = btn;
         if (value == value_number)
@@ -382,7 +382,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(InfoTextCreate("Wrong!", Color.softRed, 0.6f));
         }
     }
-    private IEnumerator ComboEffect() // Combo gerçekleþtiðinde efekt yapýlýr.
+    private IEnumerator ComboEffect() // Combo gerï¿½ekleï¿½tiï¿½inde efekt yapï¿½lï¿½r.
     {
         Audio_Source.PlayOneShot(ComboSound);
         ComboPanel.SetActive(true);
@@ -393,7 +393,7 @@ public class GameManager : MonoBehaviour
         ComboPanel.SetActive(false);
 
     }
-    private IEnumerator InfoTextCreate(string text,Color clr,float delay) // Ekrana yazý gösterir
+    private IEnumerator InfoTextCreate(string text,Color clr,float delay) // Ekrana yazï¿½ gï¿½sterir
     {
         yield return new WaitForSecondsRealtime(delay);
         GameObject point_txt = Instantiate(InfoText.gameObject, InfoTxtSpawnPoint.transform.position, Quaternion.identity);
@@ -507,7 +507,7 @@ public class GameManager : MonoBehaviour
 
 
     }
-    public void RestartTheGame() // Game Over Ekranýnda
+    public void RestartTheGame() // Game Over Ekranï¿½nda
     {
         LoseGamePanel.SetActive(false);
         ResetGame(false);
